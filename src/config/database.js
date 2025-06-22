@@ -15,8 +15,8 @@ const connectionOptions = {
   maxIdleTimeMS: parseInt(process.env.MONGODB_MAX_IDLE_TIME) || 30000,
   serverSelectionTimeoutMS: parseInt(process.env.MONGODB_SERVER_SELECTION_TIMEOUT) || 5000,
   socketTimeoutMS: parseInt(process.env.MONGODB_SOCKET_TIMEOUT) || 45000,
-  bufferMaxEntries: 0,
-  bufferCommands: false,
+  // bufferMaxEntries: 0,
+  // bufferCommands: false,
 };
 
 /**
@@ -34,7 +34,7 @@ async function connectDatabase() {
     mongoose.set('strictQuery', false);
 
     // Connect to MongoDB
-    await mongoose.connect(mongoUri, connectionOptions);
+    await mongoose.connect(mongoUri + process.env.MONGODB_DATABASE, connectionOptions);
 
     console.log(`📊 Connected to MongoDB: ${mongoose.connection.name}`);
 
