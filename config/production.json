@@ -1,0 +1,38 @@
+{
+  "server": {
+    "port": 8080,
+    "host": "0.0.0.0"
+  },
+  "database": {
+    "uri": "mongodb+srv://username:password@cluster.mongodb.net/diyawanna_sup_main",
+    "options": {
+      "maxPoolSize": 20,
+      "minPoolSize": 5,
+      "maxIdleTimeMS": 30000,
+      "serverSelectionTimeoutMS": 5000,
+      "socketTimeoutMS": 45000
+    }
+  },
+  "jwt": {
+    "secret": "production-secret-key-must-be-very-secure",
+    "expiresIn": "1h",
+    "refreshExpiresIn": "7d"
+  },
+  "cache": {
+    "ttl": 3600,
+    "maxKeys": 5000
+  },
+  "rateLimit": {
+    "windowMs": 900000,
+    "maxRequests": 100
+  },
+  "logging": {
+    "level": "info",
+    "format": "combined"
+  },
+  "cors": {
+    "origin": ["https://yourdomain.com", "https://www.yourdomain.com"],
+    "credentials": true
+  }
+}
+

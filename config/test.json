@@ -1,0 +1,38 @@
+{
+  "server": {
+    "port": 8081,
+    "host": "0.0.0.0"
+  },
+  "database": {
+    "uri": "mongodb://localhost:27017/diyawanna_sup_test",
+    "options": {
+      "maxPoolSize": 5,
+      "minPoolSize": 1,
+      "maxIdleTimeMS": 30000,
+      "serverSelectionTimeoutMS": 5000,
+      "socketTimeoutMS": 45000
+    }
+  },
+  "jwt": {
+    "secret": "test-secret-key",
+    "expiresIn": "1h",
+    "refreshExpiresIn": "7d"
+  },
+  "cache": {
+    "ttl": 300,
+    "maxKeys": 100
+  },
+  "rateLimit": {
+    "windowMs": 60000,
+    "maxRequests": 1000
+  },
+  "logging": {
+    "level": "error",
+    "format": "dev"
+  },
+  "cors": {
+    "origin": "*",
+    "credentials": true
+  }
+}
+

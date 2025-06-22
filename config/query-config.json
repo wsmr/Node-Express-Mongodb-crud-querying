@@ -1,0 +1,186 @@
+{
+  "queries": {
+    "user.findByUniversity": {
+      "name": "user.findByUniversity",
+      "description": "Find users by university name",
+      "collection": "users",
+      "category": "search",
+      "query": {
+        "university": { "$regex": "{{university}}", "$options": "i" },
+        "active": true
+      },
+      "parameters": [
+        {
+          "name": "university",
+          "type": "string",
+          "required": true,
+          "description": "University name to search for"
+        }
+      ]
+    },
+    "user.findByAge": {
+      "name": "user.findByAge",
+      "description": "Find users by age range",
+      "collection": "users",
+      "category": "filter",
+      "query": {
+        "age": {
+          "$gte": "{{minAge}}",
+          "$lte": "{{maxAge}}"
+        },
+        "active": true
+      },
+      "parameters": [
+        {
+          "name": "minAge",
+          "type": "number",
+          "required": true,
+          "description": "Minimum age"
+        },
+        {
+          "name": "maxAge",
+          "type": "number",
+          "required": true,
+          "description": "Maximum age"
+        }
+      ]
+    },
+    "user.countByUniversity": {
+      "name": "user.countByUniversity",
+      "description": "Count users by university",
+      "collection": "users",
+      "category": "aggregate",
+      "query": [
+        {
+          "$match": {
+            "active": true
+          }
+        },
+        {
+          "$group": {
+            "_id": "$university",
+            "count": { "$sum": 1 }
+          }
+        },
+        {
+          "$sort": {
+            "count": -1
+          }
+        }
+      ],
+      "parameters": []
+    },
+    "university.findByLocation": {
+      "name": "university.findByLocation",
+      "description": "Find universities by location",
+      "collection": "universities",
+      "category": "search",
+      "query": {
+        "location": { "$regex": "{{location}}", "$options": "i" },
+        "active": true
+      },
+      "parameters": [
+        {
+          "name": "location",
+          "type": "string",
+          "required": true,
+          "description": "Location to search for"
+        }
+      ]
+    },
+    "faculty.findByUniversity": {
+      "name": "faculty.findByUniversity",
+      "description": "Find faculties by university ID",
+      "collection": "faculties",
+      "category": "filter",
+      "query": {
+        "universityId": "{{universityId}}",
+        "active": true
+      },
+      "parameters": [
+        {
+          "name": "universityId",
+          "type": "objectId",
+          "required": true,
+          "description": "University ObjectId"
+        }
+      ]
+    },
+    "cart.findByUser": {
+      "name": "cart.findByUser",
+      "description": "Find carts by user ID",
+      "collection": "carts",
+      "category": "filter",
+      "query": {
+        "userId": "{{userId}}",
+        "active": true
+      },
+      "parameters": [
+        {
+          "name": "userId",
+          "type": "objectId",
+          "required": true,
+          "description": "User ObjectId"
+        }
+      ]
+    },
+    "cart.findByStatus": {
+      "name": "cart.findByStatus",
+      "description": "Find carts by status",
+      "collection": "carts",
+      "category": "filter",
+      "query": {
+        "status": "{{status}}",
+        "active": true
+      },
+      "parameters": [
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "Cart status (ACTIVE, COMPLETED, CANCELLED)",
+          "validation": {
+            "enum": ["ACTIVE", "COMPLETED", "CANCELLED"]
+          }
+        }
+      ]
+    }
+  },
+  "samples": [
+    {
+      "name": "Find users from University of Colombo",
+      "queryName": "user.findByUniversity",
+      "parameters": {
+        "university": "University of Colombo"
+      }
+    },
+    {
+      "name": "Find users aged 20-30",
+      "queryName": "user.findByAge",
+      "parameters": {
+        "minAge": 20,
+        "maxAge": 30
+      }
+    },
+    {
+      "name": "Count users by university",
+      "queryName": "user.countByUniversity",
+      "parameters": {}
+    },
+    {
+      "name": "Find universities in Colombo",
+      "queryName": "university.findByLocation",
+      "parameters": {
+        "location": "Colombo"
+      }
+    },
+    {
+      "name": "Find active carts",
+      "queryName": "cart.findByStatus",
+      "parameters": {
+        "status": "ACTIVE"
+      }
+    }
+  ]
+}
+
